@@ -1,7 +1,17 @@
-.pokemon_image {
+.pokemonImage {
     position: absolute;
     bottom: 55%;
     left: 50%;
     transform: translate(-63%, 20%);
     height: 18%;
+}
+
+.buttons{
+    position:absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 65%;
+    transform: translate(-57%, 0);
+    display: flex;
+    gap: 20px;
 }

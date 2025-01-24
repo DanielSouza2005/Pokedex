@@ -1,30 +1,46 @@
 import "./pokedex.css";
+import pokedexImage from "../../images/pokedex.png";
+
+import PokemonData from "./pokemonData";
+import Formulario from "../formulario";
+import Campo from "../campo";
+import Imagem from "../imagem";
+import Botao from "../botao";
 
 const Pokedex = () => {
     return (
         <>
-            <img src="#" alt="Pokémon" className="pokemon_image" />
+            <Imagem 
+                src="#"
+                alt="Pokémon"
+                estilo="pokemonImage"
+            />
 
-            <h1 className="pokemon_data">
-                <span className="pokemon_number"></span> -
-                <span className="pokemon_name"></span>
-            </h1>
+            <PokemonData />
 
-            <form className="form">
-                <input
+            <Formulario>
+                <Campo 
                     type="search"
-                    className="input_search"
-                    placeholder="Name or Number"
+                    estilo="inputSearch"
+                    placeholder="Nome ou Número"
                     required
                 />
-            </form>
+            </Formulario>
 
             <div className="buttons">
-                <button className="button btn-prev">Prev &lt</button>
-                <button className="button btn-next">Next &gt</button>
+                <Botao estilo="button">
+                    Anterior
+                </Botao>
+                <Botao estilo="button">
+                    Próximo
+                </Botao>
             </div>
 
-            <img src="images/pokedex.png" alt="pokedex" className="pokedex" />
+            <Imagem 
+                src={pokedexImage}
+                alt="Pokédex"
+                estilo="pokedex"
+            />
         </>
     );
 }
