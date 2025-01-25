@@ -1,0 +1,8 @@
+.pokemonData {
+    position: absolute;
+    font-weight: 600;
+    color: #aaa;
+    top: 54.5%;
+    right: 27%;
+    font-size: clamp(8px, 5vh, 25px);
+}
