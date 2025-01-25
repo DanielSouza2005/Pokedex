@@ -6,38 +6,59 @@ export const SearchPokemonContext = createContext();
 SearchPokemonContext.displayName = "Pokémon";
 
 export const SearchPokemonProvider = ({ children }) => {
-    let [searchPokemonID, setSearchPokemonID] = useState(1);
-    let [searchPokemonNome, setSearchPokemonNome] = useState("");
-    let [searchPokemonSprite, setSearchPokemonSprite] = useState("");
+    const [searchPokemonID, setSearchPokemonID] = useState(1);
+    const [searchPokemonNome, setSearchPokemonNome] = useState("");
+    const [searchPokemonSprite, setSearchPokemonSprite] = useState("");
+    const [searchInputPokemon, setSearchInputPokemon] = useState("");
 
     const ProximoID = () => {
-        setSearchPokemonID((id) => Math.min(1025, id + 1));
+        setSearchPokemonID((id) => id + 1);
     }
 
     const AnteriorID = () => {
         setSearchPokemonID((id) => Math.max(1, id - 1))
     }
 
-    const { dados, carregando, erro } = useFetch(`${PokeAPIURL}${searchPokemonID}`);
+    const aoPesquisarPokemon = (evento, pesquisa) => {
+        evento.preventDefault();
+
+        if (!pesquisa.trim()) return;
+
+        if (Number.isInteger(Number(pesquisa))) {
+            setSearchPokemonID(Number(pesquisa));
+            setSearchPokemonNome("");
+        } else {
+            setSearchPokemonID("");
+            setSearchPokemonNome(pesquisa.toLowerCase());
+        }
+
+        setSearchInputPokemon("");
+    }
+
+    const { dados, carregando, erro } = useFetch(`${PokeAPIURL}${searchPokemonID || searchPokemonNome}`);
 
     useEffect(() => {
-        if (dados) {
+        if (dados && !erro) {
             const sprite =
-                (dados.id > 649) ?
+                (dados.id === 0) ?
                     dados['sprites']['front_default'] :
-                    dados['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+                    (dados.id > 649) ?
+                        dados['sprites']['front_default'] :
+                        dados['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
 
             setSearchPokemonNome(dados.name);
             setSearchPokemonSprite(sprite);
+            setSearchPokemonID(dados.id);
         }
-    }, [dados]);
+    }, [dados, erro]);
 
     return (
         <SearchPokemonContext.Provider value={{
             searchPokemonID, setSearchPokemonID,
             searchPokemonNome, setSearchPokemonNome,
             searchPokemonSprite, setSearchPokemonSprite,
-            ProximoID, AnteriorID,
+            searchInputPokemon, setSearchInputPokemon,
+            ProximoID, AnteriorID, aoPesquisarPokemon,
             carregando
         }} >
             {children}
