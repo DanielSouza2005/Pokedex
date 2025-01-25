@@ -14,8 +14,9 @@ import Botoes from "../botoes/index.jsx";
 const Pokedex = memo(() => {
 
     const {
-        searchPokemonID, searchPokemonNome, searchPokemonSprite,
-        ProximoID, AnteriorID,
+        searchPokemonID, searchPokemonNome, 
+        searchPokemonSprite, searchInputPokemon,
+        ProximoID, AnteriorID, aoPesquisarPokemon,
         carregando
     } = useContext(SearchPokemonContext);
 
@@ -38,12 +39,15 @@ const Pokedex = memo(() => {
                 nome={searchPokemonNome}
             />
 
-            <Formulario>
+            <Formulario
+                aoPesquisar={(evento) => aoPesquisarPokemon(evento, searchInputPokemon)}
+            >
                 <Campo
                     type="search"
                     estilo="inputSearch"
                     placeholder="Nome ou Número"
                     required
+                    value={searchInputPokemon}
                 />
             </Formulario>
 
