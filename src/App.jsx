@@ -1,11 +1,14 @@
 import Pokedex from "./components/pokedex";
 import "./App.css";
+import { SearchPokemonProvider } from "./context/searchPokemon";
 
 function App() {
   return (
     <main>
 
-      <Pokedex />
+      <SearchPokemonProvider>
+        <Pokedex />
+      </SearchPokemonProvider>
 
     </main>
   );

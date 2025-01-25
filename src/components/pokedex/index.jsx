@@ -1,38 +1,42 @@
 import "./pokedex.css";
 import pokedexImage from "../../images/pokedex.png";
-import { useState } from "react";
+import { memo, useContext } from "react";
 
-import PokeAPIURL from "../../shared/globals.js";
-import useFetch from "../../hooks/useFetch.jsx";
+import { SearchPokemonContext } from "../../context/searchPokemon.jsx";
 
 import PokemonData from "./pokemonData";
 import Formulario from "../formulario";
 import Campo from "../campo";
 import Imagem from "../imagem";
 import Botao from "../botao";
-import Titulo from "../titulo/index.jsx";
+import Botoes from "../botoes/index.jsx";
 
-const Pokedex = () => {
-    let [searchPokemonID, setSearchPokemonID] = useState("1");
-    let [searchPokemonNome, setSearchPokemonNome] = useState("Bulbasaur");
+const Pokedex = memo(() => {
 
-    const { dados, carregando } = useFetch(`${PokeAPIURL}${searchPokemonID}`);
+    const {
+        searchPokemonID, searchPokemonNome, searchPokemonSprite,
+        ProximoID, AnteriorID,
+        carregando
+    } = useContext(SearchPokemonContext);
 
-    // console.log(searchPokemonID, searchPokemonNome, dados);
+    // console.log(searchPokemonID, searchPokemonNome, searchPokemonSprite);
 
     return (
         <>
-            <Titulo>{carregando ? "Carregando..." : ""}</Titulo>
+            {
+                !carregando && searchPokemonSprite && (
+                    <Imagem
+                        src={searchPokemonSprite}
+                        alt="Pokémon"
+                        estilo="pokemonImage"
+                    />
+                )
+            }
 
-            {!carregando && dados && (
-                <Imagem
-                    src={dados['sprites']['versions']['generation-v']['black-white']['animated']['front_default']}
-                    alt="Pokémon"
-                    estilo="pokemonImage"
-                />
-            )}
-
-            <PokemonData id={searchPokemonID} nome={carregando ? searchPokemonNome : dados?.name} />
+            <PokemonData
+                id={searchPokemonID}
+                nome={searchPokemonNome}
+            />
 
             <Formulario>
                 <Campo
@@ -43,14 +47,20 @@ const Pokedex = () => {
                 />
             </Formulario>
 
-            <div className="buttons">
-                <Botao estilo="button">
+            <Botoes>
+                <Botao
+                    estilo="button"
+                    aoClicar={() => AnteriorID()}
+                >
                     Anterior
                 </Botao>
-                <Botao estilo="button">
+                <Botao
+                    estilo="button"
+                    aoClicar={() => ProximoID()}
+                >
                     Próximo
                 </Botao>
-            </div>
+            </Botoes>
 
             <Imagem
                 src={pokedexImage}
@@ -59,6 +69,6 @@ const Pokedex = () => {
             />
         </>
     );
-}
+});
 
 export default Pokedex;
