@@ -14,6 +14,6 @@
 
 <h2>🛠️ Funcionalidades do Projeto </h2>
 
-- ⏹️ `Responsive layout`: Compatível com diferentes tamanhos de tela.
-- 🔍 `Search Engine`: Permite buscar Pokémon pelo nome ou ID na Pokédex Nacional.
+- ⏹️ `Layout Responsivo`: Compatível com diferentes tamanhos de tela.
+- 🔍 `Sistema de Busca`: Permite buscar Pokémon pelo nome ou ID na Pokédex Nacional.
 - 📡 `PokéAPI`: Integração com a PokéAPI para buscar os dados dos Pokémon.
