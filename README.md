@@ -1,5 +1,5 @@
 <h1>📖 Pokédex </h1>
-<img loading="lazy" src="https://img.shields.io/github/stars/DanielSouza2005?style=social"/>
+<img loading="lazy" src="https://img.shields.io/github/stars/DanielSouza2005/Pokedex?style=social"/>
 
 <h2>💡 Sobre </h2>
 <p> Projeto Pokédex desenvolvido para praticar React e conceitos de consumo de APIs, busca e exibição dinâmica de dados. </p>
